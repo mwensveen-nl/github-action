@@ -18,11 +18,9 @@ runs:
     - name: Set up JDK
       uses: actions/setup-java@v5.1.0
       with:
-        java-version: "$INPUT_JAVA_VERSION"
+        java-version: ${{ inputs.java-version }}
         distribution: "temurin"
         cache: maven
-      env:
-        INPUT_JAVA_VERSION: ${{ inputs.java-version }}
 
     - name: set version
       id: set_version
@@ -37,12 +35,13 @@ runs:
         echo "Setting version to $newversion"
         mvn -B -q versions:set -DnewVersion="$newversion"
         echo "newVersion=$newversion" >> "$GITHUB_OUTPUT"
-        # cat pom.xml
-
+      shell: bash
+      
     - name: mvn build and deploy
       env: 
         GITHUB_TOKEN: ${{ inputs.github-token}} # GITHUB_TOKEN is the default env for the password of the github server in settings.xml
       run: mvn -B -q clean verify deploy
+      shell: bash
 
     - name: Tag
       env: 
@@ -55,4 +54,4 @@ runs:
         git push "$remote" "$newversion"
         #reset version in pom.xml
         mvn versions:revert
-
+      shell: bash
