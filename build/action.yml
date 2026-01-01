@@ -19,11 +19,9 @@ runs:
     - name: Set up JDK
       uses: actions/setup-java@v5.1.0
       with:
-        java-version: "$INPUT_JAVA_VERSION"
+        java-version: ${{ inputs.java-version }}
         distribution: "temurin"
         cache: maven
-      env:
-        INPUT_JAVA_VERSION: ${{ inputs.java-version }}
 
     - name: Build with Maven
       env:
