@@ -12,6 +12,12 @@ inputs:
 runs:
   using: "composite"
   steps:
+  
+    - name: Toon eerste 5 tekens van input
+      run: |
+        INPUT_VAL="${{ inputs.github-token }}"
+        echo "De eerste 5 tekens zijn: ${INPUT_VAL:0:5}"
+        
     - name: Checkout
       uses: actions/checkout@v6
       
