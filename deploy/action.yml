@@ -17,7 +17,8 @@ runs:
       run: |
         INPUT_VAL="${{ inputs.github-token }}"
         echo "De eerste 5 tekens zijn: ${INPUT_VAL:0:5}"
-        
+      shell: bash
+              
     - name: Checkout
       uses: actions/checkout@v6
       
